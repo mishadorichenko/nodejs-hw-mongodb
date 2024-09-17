@@ -8,7 +8,13 @@ export const contactAddSchema = Joi.object({
     'string.max': 'Name cannot exceed {#limit} characters',
     'any.required': 'Name is a required field',
   }),
-  phoneNumber: Joi.string().required(),
+  phoneNumber: Joi.string()
+    .required()
+    .pattern(/^\+\d{12}$/)
+    .messages({
+      'string.pattern.base': 'Phone number must be in the format +380XXXXXXXXX',
+      'any.required': 'Phone number is a required field',
+    }),
   email: Joi.string(),
   isFavourite: Joi.boolean(),
   //   contactType: Joi.string().valid('work', 'home', 'personal').required(),
@@ -24,7 +30,12 @@ export const contactUpdateSchema = Joi.object({
     'string.max': 'Name cannot exceed {#limit} characters',
     'any.required': 'Name is a required field',
   }),
-  phoneNumber: Joi.string(),
+  phoneNumber: Joi.string()
+    .pattern(/^\+\d{12}$/)
+    .messages({
+      'string.pattern.base': 'Phone number must be in the format +380XXXXXXXXX',
+      'any.required': 'Phone number is a required field',
+    }),
   email: Joi.string(),
   isFavourite: Joi.boolean(),
   //   contactType: Joi.string().valid('work', 'home', 'personal').required(),
