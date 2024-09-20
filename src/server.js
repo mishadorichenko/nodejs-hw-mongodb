@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import { env } from './utils/env.js';
-import contactsRouter from './routers/contacts.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import logger from './middlewares/logger.js';
+
+import authRouter from './routers/auth.js';
+import contactsRouter from './routers/contacts.js';
 
 export const setupServer = () => {
   const app = express();
@@ -14,6 +16,7 @@ export const setupServer = () => {
   app.use(express.json());
 
   //routers
+  app.use('/auth', authRouter);
   //Ця  middleware інструктує node шукати обробник для запиту '/contcts' в об'єкті contactsRouter
   app.use('/contacts', contactsRouter);
 

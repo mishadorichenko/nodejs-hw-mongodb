@@ -51,7 +51,11 @@ export const createContact = (payload) => ContactCollection.create(payload);
 
 export const updateContact = async (filter, data, options = {}) => {
   const rawResult = await ContactCollection.findOneAndUpdate(filter, data, {
-    new: true,
+    //ці два рядки це правило - "Повертай нове і роби валідацію"
+    //ми коментуємо ці два рядки тому що замість них використовуємо hook setUpdateOptions який має те саме значення
+    // сам hook setUpdateOptions прописується в src/db/models/Contact.js
+    // new: true,
+    // runValidators: true, // make validation when fields are updated in base
     includeResultMetadata: true,
     ...options,
   });
