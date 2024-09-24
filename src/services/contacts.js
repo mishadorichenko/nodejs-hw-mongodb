@@ -22,6 +22,9 @@ export const getContacts = async ({
   if (filter.contactType) {
     contactQuery.where('contactType').equals(filter.contactType);
   }
+  if (filter.userId) {
+    contactQuery.where('userId').equals(filter.userId);
+  }
 
   const count = await ContactCollection.find()
     .merge(contactQuery)
@@ -44,10 +47,11 @@ export const getContacts = async ({
   };
 };
 
-export const getContactById = (contactId) =>
-  ContactCollection.findById(contactId);
+export const getContact = (filter) => ContactCollection.findById(filter);
 
-export const createContact = (payload) => ContactCollection.create(payload);
+export const createContact = (payload) => {
+  ContactCollection.create(payload);
+};
 
 export const updateContact = async (filter, data, options = {}) => {
   const rawResult = await ContactCollection.findOneAndUpdate(filter, data, {
