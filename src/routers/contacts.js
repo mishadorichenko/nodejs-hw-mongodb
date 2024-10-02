@@ -8,6 +8,7 @@ import {
 } from '../validation/contacts.js';
 import isValidId from '../middlewares/isValidId.js';
 import authenticate from '../middlewares/authenticate.js';
+import upload from '../middlewares/upload.js';
 
 const contactsRouter = Router();
 
@@ -25,7 +26,12 @@ contactsRouter.get(
 );
 
 contactsRouter.post(
+  // upload - вказуємо з якого поля беремо файл.
+  // !!! Обов'язково upload пишемо перед validateBody() тому що multer записує текстові поля в req.body
+  // upload.fields([{name: "photo", maxCount: 1}, {name: "subphoto", maxCount: 2}])
+  // upload.array("photo, 8")
   '/',
+  upload.single('photo'),
   validateBody(contactAddSchema),
   ctrlWrapper(contactsControllers.addContactController),
 );
