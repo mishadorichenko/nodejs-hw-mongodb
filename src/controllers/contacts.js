@@ -99,11 +99,23 @@ export const upsertContactController = async (req, res) => {
 };
 
 export const patchContactController = async (req, res) => {
+  let photo;
+  if (req.file) {
+    if (enableCloudinary === 'true') {
+      photo = await saveFileToCloudinary(req.file, 'photos');
+    } else {
+      photo = await saveFileToUploadDir(req.file);
+    }
+  }
+
   const { id } = req.params;
   const { _id: userId } = req.user;
   const result = await contactServices.updateContact(
     { _id: id, userId },
-    req.body,
+    {
+      ...req.body,
+      photo,
+    },
   );
   if (!result) {
     throw createHttpError(404, 'Contact not found');

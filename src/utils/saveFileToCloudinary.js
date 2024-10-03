@@ -18,7 +18,8 @@ const saveFileToCloudinary = async (file, folder) => {
     folder,
   });
   await fs.unlink(file.path);
-
+  console.log('file.path =' + file.path);
+  console.log('response.secure_url =' + response.secure_url);
   return response.secure_url;
 };
 
