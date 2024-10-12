@@ -52,30 +52,6 @@ export const getContact = (filter) => ContactCollection.findOne(filter);
 export const createContact = (payload) => ContactCollection.create(payload);
 
 export const updateContact = async (filter, data, options = {}) => {
-  console.log('-');
-  console.log('-');
-  console.log('-');
-  console.log('-');
-  console.log('-');
-
-  console.log(
-    '******************in controller updateContact ********************',
-  );
-  console.log('filter');
-  console.log(filter);
-  console.log('data');
-  console.log(JSON.stringify(data, null, 2));
-  console.log('options');
-  console.log(options);
-  console.log(
-    '******************************************************************',
-  );
-
-  console.log('-');
-  console.log('-');
-  console.log('-');
-  console.log('-');
-  console.log('-');
   const rawResult = await ContactCollection.findOneAndUpdate(filter, data, {
     //ці два рядки це правило - "Повертай нове і роби валідацію"
     //ми коментуємо ці два рядки тому що замість них використовуємо hook setUpdateOptions який має те саме значення
@@ -86,9 +62,6 @@ export const updateContact = async (filter, data, options = {}) => {
     ...options,
   });
 
-  console.log('***************************************************');
-  console.log(options);
-  console.log('***************************************************');
   if (!rawResult || !rawResult.value) return null;
 
   return {
